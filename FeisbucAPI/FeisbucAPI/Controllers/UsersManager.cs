@@ -48,5 +48,31 @@ namespace FeisbucAPI.Controllers
 
             return usuario;
         }
+
+        internal User buscarUsuario(string pid)
+        {
+            User usuario = null;
+            for (int i = 0; i < userList.Count; i++)
+            {
+                if (userList[i].Id == Convert.ToInt32(pid))
+                    usuario = userList[i];
+            }
+
+            return usuario;
+        }
+
+        internal User saveUserFeed(string texto, string idFeed, string idUsuario)
+        {
+            User usuario = buscarUsuario(idUsuario);
+            for (int i = 0; i < usuario.Newsfedds.Length; i++)
+            {
+                if (usuario.Newsfedds[i].Id == Convert.ToInt32(idFeed))
+                {
+                    usuario.Newsfedds[i].Mensaje = texto;
+                }
+            }
+
+            return usuario;
+        }
     }
 }

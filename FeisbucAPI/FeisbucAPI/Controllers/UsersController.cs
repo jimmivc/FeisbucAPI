@@ -44,5 +44,23 @@ namespace FeisbucAPI.Controllers
 
         }
 
+        // POST: api/Users/save
+        [Route("api/users/save")]
+        [HttpPost]
+        public HttpResponseMessage save([FromBody]string[] info)
+        {
+            User usuario = UsersManager.GetInstance().saveUserFeed(info[0],info[1],info[2]);
+            if (usuario != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, usuario);
+            }
+        }
+
+
+
     }
 }
