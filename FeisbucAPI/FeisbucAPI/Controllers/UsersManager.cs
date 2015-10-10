@@ -8,46 +8,45 @@ namespace FeisbucAPI.Controllers
 {
     public class UsersManager
     {
-        public class UsersManager
+        private static UsersManager instance;
+        private List<User> userList;
+
+        private UsersManager()
         {
-            private static UsersManager instance;
-            private List<User> userList;
+            userList = new List<User>();
+            userList.Add(new User(1, "bugs", "bbunny", "bugs@warner.com", "bunny", 79, new NewsFeed[4] { new NewsFeed("hola"), new NewsFeed("bugs"), new NewsFeed("bunn"), new NewsFeed("y") }));
+            userList.Add(new User(2, "lucas","pduck","lucas@warner.com", "duck", 30, new NewsFeed[4] { new NewsFeed("aqui chilling"), new NewsFeed("hoy no es un buen dia"), new NewsFeed("cuack"), new NewsFeed("lol") }));
+        }
 
-            private UsersManager()
-            {
-                userList = new List<User>();
-                userList.Add(new User(1, "bugs","bugs@warner.com","bbunny", "bunny", 79));
-                userList.Add(new User(2, "lucas","lucas@warner.com","pduck", "duck", 30));
-            }
-
-            public static UsersManager GetInstance()
-            {
-                if (instance == null)
-                    instance = new UsersManager();
-
-                return instance;
-            }
-
-            public static void ClearInstance()
-            {
+        public static UsersManager GetInstance()
+        {
+            if (instance == null)
                 instance = new UsersManager();
-            }
 
-            public List<User> UserList
+            return instance;
+        }
+
+        public static void ClearInstance()
+        {
+            instance = new UsersManager();
+        }
+
+        public List<User> UserList
+        {
+            get { return userList; }
+            set { userList = value; }
+        }
+
+        public User Login(string username, string pass)
+        {
+            User usuario = null;
+            for (int i = 0; i < userList.Count; i++)
             {
-                get { return userList; }
-                set { userList = value; }
+                if (userList[i].Name.Equals(username) && userList[i].Pass.Equals(pass))
+                    usuario = userList[i];
             }
 
-            //public User Login(string username,string pass)
-            //{
-            //    User usuario = null;
-            //    for (int i = 0; i < userList.Count; i++)
-            //        if (userList[i].Name.Equals(username) && userList[i].Pass.Equals(pass))
-            //            usuario = userList[i];
-
-            //    return usuario;
-            //}
+            return usuario;
         }
     }
 }

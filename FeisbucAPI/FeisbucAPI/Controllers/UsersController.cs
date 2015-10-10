@@ -23,9 +23,14 @@ namespace FeisbucAPI.Controllers
         }
 
         // POST: api/Users
-        public void Post([FromBody]string nombre,[FromBody]string pass)
+        public HttpResponseMessage Post([FromBody]string[] info)
         {
-            return Request.CreateResponse<User>(HttpStatusCode.OK, UsersManager.GetInstance());
+            User usuario = UsersManager.GetInstance().Login(info[0], info[1]);
+            if(usuario!=null){
+                return Request.CreateResponse(HttpStatusCode.OK, usuario);
+            }else{
+                return Request.CreateResponse(HttpStatusCode.NotFound, usuario);
+            }
         }
 
         // PUT: api/Users/5
@@ -36,6 +41,7 @@ namespace FeisbucAPI.Controllers
         // DELETE: api/Users/5
         public void Delete(int id)
         {
+
         }
 
     }

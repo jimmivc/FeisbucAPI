@@ -20,8 +20,10 @@ namespace FeisbucAPI.Models
         private string lastname;
         [JsonProperty(PropertyName = "age")]
         private int age;
+        [JsonProperty(PropertyName = "feeds")]
+        private NewsFeed[] newsfedds;
 
-        public User(int pid, string pname,string ppass,string pcorreo, string plast, int page)
+        public User(int pid, string pname,string ppass,string pcorreo, string plast, int page, NewsFeed[] feeds)
         {
             Id = pid;
             Name = pname;
@@ -29,6 +31,7 @@ namespace FeisbucAPI.Models
             Correo = pcorreo;
             Lastname = plast;
             Age = page;
+            Newsfedds = feeds;
         }
 
         [JsonIgnore]
@@ -66,6 +69,12 @@ namespace FeisbucAPI.Models
         {
             get { return age; }
             set { age = value; }
+        }
+        [JsonIgnore]
+        public NewsFeed[] Newsfedds
+        {
+            get { return newsfedds; }
+            set { newsfedds = value; }
         }
     }
 }
